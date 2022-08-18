@@ -58,6 +58,11 @@ Options:
 }
 
 func main() {
+	change := map[string]string {
+		"Simple": "刚需",
+		"Medium": "改善",
+		"Hard": "豪宅",
+	}
 	flag.Parse()
 	if help {
 		flag.PrintDefaults()
@@ -78,14 +83,15 @@ func main() {
 
 	today := resp.TodayRecord[0]
 
-	msgTemplate := `每日一题(%s)
-Title: %s
-Difficulty: %s
-Tags: %s
-Link: %s
-LinkCN: %s`
+	msgTemplate := `今日好房推荐(%s)
+标题: %s
+户型: %s
+关键字: %s
+US: %s
+中文: %s
+`
 	date := today.Date
-	difficulty := today.Question.Difficulty
+	difficulty := change[today.Question.Difficulty]
 	title := fmt.Sprintf("%s(%s)", today.Question.TitleCn, today.Question.Title)
 	tags := make([]string, 0)
 	for _, tag := range today.Question.TopicTags {
